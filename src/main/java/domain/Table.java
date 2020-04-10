@@ -28,6 +28,13 @@ public class Table {
 		return orders;
 	}
 
+	public int getBills() {
+		return orders.entrySet()
+			.stream()
+			.mapToInt(entry -> entry.getKey().getPriceByMultiple(entry.getValue()))
+			.sum();
+	}
+
 	public void deleteAllOrders() {
 		orders = new HashMap<>();
 	}

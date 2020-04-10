@@ -17,6 +17,10 @@ public class Menu {
         return this.number == number;
     }
 
+    public int getPriceByMultiple(int multipleValue) {
+        return price * multipleValue;
+    }
+
     public String getName() {
         return name;
     }

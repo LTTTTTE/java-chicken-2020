@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public enum Payment {
@@ -12,6 +13,13 @@ public enum Payment {
 	Payment(int paymentTypeInput, Function<Double, Double> discount) {
 		this.paymentTypeInput = paymentTypeInput;
 		this.discount = discount;
+	}
+
+	public static Payment of(int paymentTypeInput) {
+		return Arrays.stream(Payment.values())
+			.filter(x -> x.paymentTypeInput == paymentTypeInput)
+			.findFirst()
+			.orElseThrow(() -> new IllegalArgumentException("그런 결제방법은 없습니다."));
 	}
 
 	public boolean isCard() {

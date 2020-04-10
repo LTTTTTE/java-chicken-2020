@@ -6,6 +6,8 @@ import java.util.List;
 import domain.MainMenu;
 import domain.Menu;
 import domain.MenuRepository;
+import domain.Payment;
+import domain.PaymentManager;
 import domain.Table;
 import domain.TableRepository;
 
@@ -25,7 +27,7 @@ public class Application {
 		if (mainMenuNumber.isOrder()) {
 			order();
 		}
-		if(mainMenuNumber.isPay()) {
+		if (mainMenuNumber.isPay()) {
 			pay();
 		}
 	}
@@ -49,9 +51,11 @@ public class Application {
 	private static void pay() {
 		List<Table> tables = TableRepository.tables();
 		printTables(tables);
-
 		final int tableNumber = inputTableNumber();
 		Table table = TableRepository.findTable(tableNumber);
 		printOrders(table.getOrders());
+		Payment paymentType = Payment.of(inputPaymentNumber(tableNumber));
+		PaymentManager paymentManager = new PaymentManager(paymentType, table.getBills());
+		printBills(paymentManager.calculate());
 	}
 }
