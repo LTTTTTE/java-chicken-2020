@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Table {
     private final int number;
-    private final Map<Menu, Integer> orders;
+    private Map<Menu, Integer> orders;
 
     public Table(final int number) {
         this.number = number;
@@ -14,6 +14,10 @@ public class Table {
 
     public void addMenu(Menu menu, int count) {
         orders.put(menu, count);
+    }
+
+    public void deleteAllOrders() {
+        orders = new HashMap<>();
     }
 
     @Override
