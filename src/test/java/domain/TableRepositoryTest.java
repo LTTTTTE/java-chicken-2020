@@ -23,4 +23,15 @@ public class TableRepositoryTest {
 		assertThatThrownBy(() -> TableRepository.findTable(number))
 			.isInstanceOf(IllegalArgumentException.class);
 	}
+
+	@Test
+	@DisplayName("테이블에 메뉴추가하는 기능 테스트 (두번호출로 이전메뉴 저장여부까지 확인)")
+	public void addMenuTest() {
+		Table table = TableRepository.findTable(1);
+		Menu menu = MenuRepository.getMenu(1);
+		table.addMenu(menu, 10);
+		table.addMenu(menu, 10);
+
+		assertThat(table.getOrders().get(menu)).isEqualTo(20);
+	}
 }

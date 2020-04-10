@@ -13,6 +13,10 @@ public class Table {
 	}
 
 	public void addMenu(Menu menu, int count) {
+		if (orders.containsKey(menu)) {
+			orders.put(menu, orders.get(menu) + count);
+			return;
+		}
 		orders.put(menu, count);
 	}
 
