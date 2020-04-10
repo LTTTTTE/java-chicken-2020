@@ -13,6 +13,13 @@ public enum MainMenu {
 		this.input = input;
 	}
 
+	public static MainMenu of(int input) {
+		return Arrays.stream(MainMenu.values())
+			.filter(x -> x.input == input)
+			.findFirst()
+			.orElseThrow(() -> new IllegalArgumentException("잘못된 메뉴입니다."));
+	}
+
 	public boolean isNotEnd(){
 		return this != END;
 	}
@@ -23,12 +30,5 @@ public enum MainMenu {
 
 	public boolean isPay() {
 		return this == PAY;
-	}
-
-	public static MainMenu of(int input) {
-		return Arrays.stream(MainMenu.values())
-			.filter(x -> x.input == input)
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("잘못된 메뉴입니다."));
 	}
 }

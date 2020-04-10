@@ -22,14 +22,6 @@ public enum Payment {
 			.orElseThrow(() -> new IllegalArgumentException("그런 결제방법은 없습니다."));
 	}
 
-	public boolean isCard() {
-		return this == CARD;
-	}
-
-	public boolean isCash() {
-		return this == CASH;
-	}
-
 	public double getDiscount(double value) {
 		return discount.apply(value);
 	}
