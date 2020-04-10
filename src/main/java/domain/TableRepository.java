@@ -16,6 +16,10 @@ public class TableRepository {
         tables.add(new Table(8));
     }
 
+    public static Table findTable(int tableNumber) {
+        return tables.get(tableNumber);
+    }
+
     public static List<Table> tables() {
         return Collections.unmodifiableList(tables);
     }
