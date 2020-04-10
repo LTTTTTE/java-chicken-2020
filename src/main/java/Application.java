@@ -25,6 +25,7 @@ public class Application {
 
 			Table table = TableRepository.findTable(tableNumber);
 			table.addMenu(MenuRepository.getMenu(menuNumber), menuCount);
+			printOrders(table.getOrders());
 		}
 	}
 }

@@ -4,6 +4,7 @@ import domain.Menu;
 import domain.Table;
 
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
     private static final String TOP_LINE = "┌ ─ ┐";
@@ -29,6 +30,14 @@ public class OutputView {
         for (final Menu menu : menus) {
             System.out.println(menu);
         }
+    }
+
+    public static void printOrders(final Map<Menu, Integer> orders) {
+        orders.forEach(OutputView::printSingleOrder);
+    }
+
+    private static void printSingleOrder(final Menu menu, final int count) {
+        System.out.println(menu.getName() + " " + count);
     }
 
     private static void printLine(final String line, final int count) {
