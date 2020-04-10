@@ -14,10 +14,6 @@ public class TablesDto {
 			.collect(Collectors.toList());
 	}
 
-	public int size() {
-		return tables.size();
-	}
-
 	public List<TableDto> getTables() {
 		return tables;
 	}

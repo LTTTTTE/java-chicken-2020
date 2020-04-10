@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Orders {
 	private static final int CHICKEN_DISCOUNT_VALUE = 10_000;
+	private static final int MAX_MENU_COUNT = 99;
 
 	private final Map<Menu, Integer> orders;
 
@@ -13,6 +14,10 @@ public class Orders {
 	}
 
 	public void putOrder(Menu menu, int count) {
+		if (orders.getOrDefault(menu, 0) + count > MAX_MENU_COUNT) {
+			throw new IllegalArgumentException("한메뉴 99개 이상 주문할수 없습니다.");
+		}
+
 		if (orders.containsKey(menu)) {
 			orders.put(menu, orders.get(menu) + count);
 			return;

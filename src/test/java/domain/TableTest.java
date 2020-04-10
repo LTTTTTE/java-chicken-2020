@@ -81,12 +81,35 @@ public class TableTest {
 	}
 
 	@Test
+	@DisplayName("치킨류 20개 할인 적용여부 테스")
+	public void chickenTypeDiscountedMoreThenTensBillTest() {
+		table.addMenu(MenuRepository.getMenu(1), 10);
+		table.addMenu(MenuRepository.getMenu(2), 10);
+
+		int bills = table.getBills();
+
+		assertThat(bills).isEqualTo(16000 * 20 - 20000);
+	}
+
+	@Test
 	public void deleteAllOrdersTest() {
 		table.addMenu(MenuRepository.getMenu(1), 5);
 
 		table.deleteAllOrders();
 
 		assertThat(!table.isOrdered()).isTrue();
+	}
+
+	@Test
+	@DisplayName("50 + 50 으로 100개를 추가하려함")
+	public void maxMenuCountTest() {
+		Orders orders = new Orders();
+
+		orders.putOrder(MenuRepository.getMenu(1), 50);
+
+		assertThatThrownBy(() -> orders.putOrder(MenuRepository.getMenu(1), 50))
+			.isInstanceOf(IllegalArgumentException.class);
+
 	}
 
 	@Test
