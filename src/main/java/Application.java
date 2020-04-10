@@ -12,6 +12,7 @@ import domain.PaymentManager;
 import domain.Table;
 import domain.TableRepository;
 import view.dto.OrdersDto;
+import view.dto.TablesDto;
 
 public class Application {
 	// TODO 구현 진행
@@ -35,7 +36,8 @@ public class Application {
 	}
 
 	private static void order() {
-		printTables(TableRepository.tables());
+		TablesDto tablesDto = new TablesDto(TableRepository.tables());
+		printTables(tablesDto);
 		Table table = TableRepository.findTable(inputTableNumber());
 
 		printMenus(MenuRepository.menus());
@@ -43,7 +45,8 @@ public class Application {
 	}
 
 	private static void pay() {
-		printTables(TableRepository.tables());
+		TablesDto tablesDto = new TablesDto(TableRepository.tables());
+		printTables(tablesDto);
 		Table table = TableRepository.findTable(inputTableNumber());
 		Map<Menu, Integer> orders = table.getOrders();
 		;

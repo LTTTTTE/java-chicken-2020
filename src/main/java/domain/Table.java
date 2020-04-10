@@ -24,6 +24,10 @@ public class Table {
 		return this.number == number;
 	}
 
+	public boolean isOrdered() {
+		return !orders.isEmpty();
+	}
+
 	public Map<Menu, Integer> getOrders() {
 		return orders;
 	}

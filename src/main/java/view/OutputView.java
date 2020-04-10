@@ -1,17 +1,18 @@
 package view;
 
 import java.util.List;
-import java.util.Map;
 
 import domain.Menu;
-import domain.Table;
 import view.dto.OrderDto;
 import view.dto.OrdersDto;
+import view.dto.TableDto;
+import view.dto.TablesDto;
 
 public class OutputView {
 	private static final String TOP_LINE = "┌ ─ ┐";
 	private static final String TABLE_FORMAT = "| %s |";
 	private static final String BOTTOM_LINE = "└ ─ ┘";
+	private static final String ORDERED_LINE = "- $ -";
 
 	public static void printMainMenus() {
 		System.out.println("## 메인화면\n"
@@ -20,12 +21,12 @@ public class OutputView {
 			+ "3 - 프로그램 종료\n");
 	}
 
-	public static void printTables(final List<Table> tables) {
+	public static void printTables(final TablesDto tablesDto) {
 		System.out.println("## 테이블 목록");
-		final int size = tables.size();
-		printLine(TOP_LINE, size);
+		List<TableDto> tables = tablesDto.getTables();
+		printLine(TOP_LINE, tables);
 		printTableNumbers(tables);
-		printLine(BOTTOM_LINE, size);
+		printLine(BOTTOM_LINE, tables);
 	}
 
 	public static void printMenus(final List<Menu> menus) {
@@ -47,16 +48,23 @@ public class OutputView {
 		System.out.println(orderDto.getMenuName() + " " + orderDto.getCount() + " : " + orderDto.getPrice());
 	}
 
-	private static void printLine(final String line, final int count) {
-		for (int index = 0; index < count; index++) {
-			System.out.print(line);
+	private static void printLine(final String line, final List<TableDto> tables) {
+		for (TableDto table : tables) {
+			System.out.print(orderedString(line, table));
 		}
 		System.out.println();
 	}
 
-	private static void printTableNumbers(final List<Table> tables) {
-		for (final Table table : tables) {
-			System.out.printf(TABLE_FORMAT, table);
+	private static String orderedString(String line, TableDto table) {
+		if(table.isOrdered()) {
+			return ORDERED_LINE;
+		}
+		return line;
+	}
+
+	private static void printTableNumbers(final List<TableDto> tables) {
+		for (final TableDto table : tables) {
+			System.out.printf(TABLE_FORMAT, table.getTableNumber());
 		}
 		System.out.println();
 	}
