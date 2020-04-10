@@ -21,6 +21,10 @@ public class Menu {
         return price * multipleValue;
     }
 
+    public boolean isChickenCategory() {
+        return category.isChicken();
+    }
+
     public String getName() {
         return name;
     }

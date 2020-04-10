@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Orders {
+	private static final int CHICKEN_DISCOUNT_VALUE = 10_000;
+
 	private final Map<Menu, Integer> orders;
 
 	public Orders() {
@@ -34,6 +36,14 @@ public class Orders {
 		return orders.entrySet()
 			.stream()
 			.mapToInt(entry -> entry.getKey().getPriceByMultiple(entry.getValue()))
-			.sum();
+			.sum() - chickenDiscountAmount() * CHICKEN_DISCOUNT_VALUE;
+	}
+
+	private int chickenDiscountAmount() {
+		return orders.entrySet()
+			.stream()
+			.filter(entry -> entry.getKey().isChickenCategory())
+			.mapToInt(Map.Entry::getValue)
+			.sum() / 10;
 	}
 }
