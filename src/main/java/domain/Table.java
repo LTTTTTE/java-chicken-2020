@@ -1,23 +1,18 @@
 package domain;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Table {
 	private final int number;
-	private Map<Menu, Integer> orders;
+	private final Orders orders;
 
 	public Table(final int number) {
 		this.number = number;
-		this.orders = new HashMap<>();
+		this.orders = new Orders();
 	}
 
 	public void addMenu(Menu menu, int count) {
-		if (orders.containsKey(menu)) {
-			orders.put(menu, orders.get(menu) + count);
-			return;
-		}
-		orders.put(menu, count);
+		orders.putOrder(menu, count);
 	}
 
 	public boolean isSameTableNumber(int number) {
@@ -25,22 +20,19 @@ public class Table {
 	}
 
 	public boolean isOrdered() {
-		return !orders.isEmpty();
-	}
-
-	public Map<Menu, Integer> getOrders() {
-		return orders;
+		return orders.isOrdered();
 	}
 
 	public int getBills() {
-		return orders.entrySet()
-			.stream()
-			.mapToInt(entry -> entry.getKey().getPriceByMultiple(entry.getValue()))
-			.sum();
+		return orders.getBills();
 	}
 
 	public void deleteAllOrders() {
-		orders = new HashMap<>();
+		orders.deleteAllOrders();
+	}
+
+	public Map<Menu, Integer> getOrders() {
+		return orders.getOrders();
 	}
 
 	public int getNumber() {
