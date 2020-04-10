@@ -1,7 +1,6 @@
 import static view.InputView.*;
 import static view.OutputView.*;
 
-import java.util.List;
 import java.util.Map;
 
 import domain.MainMenu;
@@ -15,7 +14,6 @@ import view.dto.OrdersDto;
 import view.dto.TablesDto;
 
 public class Application {
-	// TODO 구현 진행
 	public static void main(String[] args) {
 		MainMenu mainMenuNumber;
 
@@ -49,7 +47,6 @@ public class Application {
 		printTables(tablesDto);
 		Table table = TableRepository.findTable(inputTableNumber());
 		Map<Menu, Integer> orders = table.getOrders();
-		;
 		printOrders(new OrdersDto(orders));
 
 		Payment paymentType = Payment.of(inputPaymentNumber(table.getNumber()));
