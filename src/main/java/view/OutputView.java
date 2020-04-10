@@ -5,6 +5,8 @@ import java.util.Map;
 
 import domain.Menu;
 import domain.Table;
+import view.dto.OrderDto;
+import view.dto.OrdersDto;
 
 public class OutputView {
 	private static final String TOP_LINE = "┌ ─ ┐";
@@ -32,16 +34,17 @@ public class OutputView {
 		}
 	}
 
-	public static void printOrders(final Map<Menu, Integer> orders) {
-		orders.forEach(OutputView::printSingleOrder);
+	public static void printOrders(final OrdersDto orders) {
+		orders.getOrders()
+			.forEach(OutputView::printSingleOrder);
 	}
 
 	public static void printBills(final double bills) {
-		System.out.printf("## 최종 결제 할 금액 %.1f원\n", bills);
+		System.out.printf("## 최종 결제 할 금액 %.0f원\n", bills);
 	}
 
-	private static void printSingleOrder(final Menu menu, final int count) {
-		System.out.println(menu.getName() + " " + count);
+	private static void printSingleOrder(final OrderDto orderDto) {
+		System.out.println(orderDto.getMenuName() + " " + orderDto.getCount() + " : " + orderDto.getPrice());
 	}
 
 	private static void printLine(final String line, final int count) {

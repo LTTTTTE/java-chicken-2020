@@ -2,6 +2,7 @@ import static view.InputView.*;
 import static view.OutputView.*;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.MainMenu;
 import domain.Menu;
@@ -10,6 +11,7 @@ import domain.Payment;
 import domain.PaymentManager;
 import domain.Table;
 import domain.TableRepository;
+import view.dto.OrdersDto;
 
 public class Application {
 	// TODO 구현 진행
@@ -33,29 +35,23 @@ public class Application {
 	}
 
 	private static void order() {
-		List<Table> tables = TableRepository.tables();
-		printTables(tables);
+		printTables(TableRepository.tables());
+		Table table = TableRepository.findTable(inputTableNumber());
 
-		final int tableNumber = inputTableNumber();
-
-		final List<Menu> menus = MenuRepository.menus();
-		printMenus(menus);
-		final int menuNumber = inputFoodMenuNumber();
-		final int menuCount = inputMenuCount();
-
-		Table table = TableRepository.findTable(tableNumber);
-		table.addMenu(MenuRepository.getMenu(menuNumber), menuCount);
-
+		printMenus(MenuRepository.menus());
+		table.addMenu(MenuRepository.getMenu(inputFoodMenuNumber()), inputMenuCount());
 	}
 
 	private static void pay() {
-		List<Table> tables = TableRepository.tables();
-		printTables(tables);
-		final int tableNumber = inputTableNumber();
-		Table table = TableRepository.findTable(tableNumber);
-		printOrders(table.getOrders());
-		Payment paymentType = Payment.of(inputPaymentNumber(tableNumber));
+		printTables(TableRepository.tables());
+		Table table = TableRepository.findTable(inputTableNumber());
+		Map<Menu, Integer> orders = table.getOrders();
+		;
+		printOrders(new OrdersDto(orders));
+
+		Payment paymentType = Payment.of(inputPaymentNumber(table.getNumber()));
 		PaymentManager paymentManager = new PaymentManager(paymentType, table.getBills());
 		printBills(paymentManager.calculate());
+		table.deleteAllOrders();
 	}
 }
