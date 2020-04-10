@@ -16,6 +16,10 @@ public class Table {
 		orders.put(menu, count);
 	}
 
+	public boolean isSameTableNumber(int number) {
+		return this.number == number;
+	}
+
 	public Map<Menu, Integer> getOrders() {
 		return orders;
 	}

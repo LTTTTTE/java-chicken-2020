@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class TableRepository {
 	private static final List<Table> tables = new ArrayList<>();
@@ -18,11 +17,10 @@ public class TableRepository {
 	}
 
 	public static Table findTable(int tableNumber) {
-		Table table = tables.get(tableNumber);
-		if (Objects.isNull(table)) {
-			throw new IllegalArgumentException("존재하지 않는 테이블 번호 입니다.");
-		}
-		return table;
+		return tables.stream()
+			.filter(table -> table.isSameTableNumber(tableNumber))
+			.findFirst()
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 테이블 번호입니다."));
 	}
 
 	public static List<Table> tables() {
